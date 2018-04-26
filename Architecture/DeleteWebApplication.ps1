@@ -10,3 +10,7 @@ Remove-SPWebApplication -identity $WebAppURL -Confirm
 
 #Remove the web application and its databases & IIS Web Application
 Remove-SPWebApplication -identity $WebAppURL -Confirm -DeleteIISSite -RemoveContentDatabases
+
+#Delete site collection
+$SiteCollectionURL = "http://gea:2110/sites/kmi"
+Remove-SPSite -Identity $SiteCollectionURL 
