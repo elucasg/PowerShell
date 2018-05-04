@@ -22,3 +22,10 @@ $SiteCollectionAdmin = "sharepointdev\administrator"
 
 $template = Get-SPWebTemplate "STS#0"
 New-SPSite -url $SiteCollectionUrl -name $SiteCollectionTitle -owneralias $SiteCollectionAdmin -template $template
+
+# Create Subsite
+$SiteTitle = "Human Resource"
+$SiteUrl = "http://demo.pccs.com/hr/"
+$WebTemplate = "STS#0" #Team Site template
+ 
+New-SPWeb -Name $SiteTitle -Url $SiteUrl -Template $WebTemplate
