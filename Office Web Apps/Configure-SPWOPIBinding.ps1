@@ -1,6 +1,6 @@
 
 # Disable office web apps for your entire SharePoint environment
-Remove-SPWOPIBinding -all $true
+Remove-SPWOPIBinding –All:$true
 
 # Enable opening documents in client applications at Site collection level:
 #  - Log into SharePoint site >> Go to Site Settings.
