@@ -112,6 +112,14 @@ param(
     Write-Host "All Temporary Internet Files have been removed successfully!                                      " -NoNewline -ForegroundColor Green
     Write-Host "[DONE]" -ForegroundColor Green -BackgroundColor Black
 
+    ## Removes all files and folders in Temporary ASP.Net Files older then $DaysToDelete
+    Get-ChildItem "C:\Windows\Microsoft.NET\Framework*\v*\Temporary ASP.NET Files" `
+        -Recurse -Force -Verbose -ErrorAction SilentlyContinue |
+        Where-Object {($_.CreationTime -lt $(Get-Date).AddDays( - $DaysToDelete))} |
+        Remove-Item -Force -Recurse -ErrorAction SilentlyContinue -Verbose
+    Write-Host "All Temporary ASP.Net Files have been removed successfully!                                      " -NoNewline -ForegroundColor Green
+    Write-Host "[DONE]" -ForegroundColor Green -BackgroundColor Black
+
     ## Removes *.log from C:\windows\CBS
     if(Test-Path C:\Windows\logs\CBS\){
     Get-ChildItem "C:\Windows\logs\CBS\*.log" -Recurse -Force -ErrorAction SilentlyContinue |
