@@ -1,4 +1,4 @@
-Add-PSSnapin "Microsoft.SharePoint.PowerShell"
+Add-PSSnapin "Microsoft.SharePoint.PowerShell" -ErrorAction SilentlyContinue
 
 # Set variables
 $WebApplicationUrl = "http://bm2-077:16877"
@@ -24,15 +24,16 @@ function wait4timer($solutionName)
 $InstalledSolution = Get-SPSolution -Identity $WspName
 if($InstalledSolution -ne $null)
 {
+   Write-Host "Uninstalling solution" -ForegroundColor Green
    if($InstalledSolution.DeployedWebApplications.Count -gt 0)
    {
        # Solution is installed in at least one WebApplication.  Hence, uninstall from all the web applications.
        # We need to uninstall from all the WebApplicaiton.  If not, it will throw error while Removing the solution
-       Write-Host "Uninstalling solution" -ForegroundColor Green
-       Uninstall-SPSolution $WspName -AllWebApplications:$true -confirm:$false
-
-       wait4timer($WspName) 
+       Uninstall-SPSolution $WspName -AllWebApplications:$true -confirm:$false       
+   } else {
+      Uninstall-SPSolution $WspName -confirm:$false
    }
+   wait4timer($WspName) 
 
    # Remove the Solution from the Farm
    Write-Host "Remove the Solution from the Farm" -ForegroundColor Green
