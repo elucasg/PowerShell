@@ -25,3 +25,6 @@ else
     Enable-SPFeature -Identity $featureName -Url $siteUrl
     Write-Host "Feature $featureName activated"
 }
+
+# Deactivate a feature
+Disable-SPFeature –identity $FeatureID -URL $siteUrl -Confirm:$false
